@@ -7,8 +7,8 @@
 -- IF spring.jpa.hibernate.ddl-auto IS SET TO create OR create-drop
 -- IT IS A Hibernate feature (nothing to do with Spring)
 
--- INSERT INTO USER (id, firstname, lastname, email, username, password, role) VALUES ('123', 'John', 'Doe', 'john@mail.com', 'johnD', 'pass1234', 'ROLE_USER');
--- INSERT INTO USER (id, firstname, lastname, email, username, password, role) VALUES ('124', 'Jane', 'Doe', 'jane@mail.com', 'janeD', 'pass1234', 'ROLE_ADMIN');
+INSERT INTO USER (id, firstname, lastname, email, username, password, role) VALUES ('123', 'John', 'Doe', 'john@mail.com', 'johnD', 'pass1234', 'ROLE_USER');
+INSERT INTO USER (id, firstname, lastname, email, username, password, role) VALUES ('124', 'Jane', 'Doe', 'jane@mail.com', 'janeD', 'pass1234', 'ROLE_ADMIN');
 
 INSERT INTO AUTHOR (firstname, lastname) VALUES ('Leo', 'Tolstoy');
 INSERT INTO AUTHOR (firstname, lastname) VALUES ('John', 'Steinbeck');

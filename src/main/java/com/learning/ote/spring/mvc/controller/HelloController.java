@@ -4,10 +4,10 @@ import com.learning.ote.spring.mvc.service.GreetingService;
 import com.learning.ote.spring.mvc.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HelloController {
@@ -20,8 +20,8 @@ public class HelloController {
     private GreetingService greetingService;
 
     @GetMapping("/")
-    public String sayHello(@RequestParam(name = "id", required = false, defaultValue = "World") String id, Model model) {
-
+    public String sayHello(Model model) {
+        String id = SecurityContextHolder.getContext().getAuthentication().getName();
         String username = service.getUsernameFromId(id);
 
         model.addAttribute("username", username);

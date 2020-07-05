@@ -1,8 +1,7 @@
 package com.learning.ote.spring.mvc.service;
 
-import com.learning.ote.spring.mvc.auth.domain.User;
+import com.learning.ote.spring.mvc.auth.domain.UserInfo;
 import com.learning.ote.spring.mvc.auth.repository.UserRepository;
-import com.learning.ote.spring.mvc.repository.HelloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,7 @@ public class HelloServiceImpl implements HelloService{
     public String getUsernameFromId(String id) {
 
          Optional<String> username = repository.findByUsername(id)
-                 .map(User::getFirstName);
+                 .map(UserInfo::getFirstName);
 
          return username.orElse("unknown user");
 

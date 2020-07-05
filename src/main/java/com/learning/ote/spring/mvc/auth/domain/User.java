@@ -1,48 +1,28 @@
 package com.learning.ote.spring.mvc.auth.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import java.util.List;
 
 @Entity
-@Table(name = "USER", uniqueConstraints = {@UniqueConstraint(columnNames = "username")})
+@Table(name = "users")
 public class User {
-    private static final int MAX_NAME_LENGTH = 60;
-
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
     @Column(name = "username")
     private String username;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "firstname", length = MAX_NAME_LENGTH)
-    private String firstName;
+    @Column(name = "enabled")
+    private boolean enabled;
 
-    @Column(name = "lastname", length = MAX_NAME_LENGTH)
-    private String lastName;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "role")
-    private String role;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", targetEntity = Authorities.class)
+    private List<Authorities> authorities;
 
     public String getUsername() {
         return username;
@@ -60,35 +40,20 @@ public class User {
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public String getLastName() {
-        return lastName;
+    public List<Authorities> getAuthorities() {
+        return authorities;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public void setAuthorities(List<Authorities> authorities) {
+        this.authorities = authorities;
     }
 }
+

@@ -3,6 +3,7 @@ package com.learning.ote.spring.mvc.controller;
 import com.learning.ote.spring.mvc.domain.dto.BookDTO;
 import com.learning.ote.spring.mvc.exception.BookNotFoundException;
 import com.learning.ote.spring.mvc.exception.errors.BookError;
+import com.learning.ote.spring.mvc.gateway.BookGateway;
 import com.learning.ote.spring.mvc.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,6 +26,9 @@ public class BookRestController {
 
     @Autowired
     BookService bookService;
+
+    @Autowired
+    BookGateway bookGateway;
 
     @GetMapping("/")
     public List<BookDTO> findAll() {
@@ -53,18 +58,21 @@ public class BookRestController {
         return bookService.save(bookDTO);
     }
 
-    @ExceptionHandler(BookNotFoundException.class)
-    public ResponseEntity<String> handleException() {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body("Book not found exception");
+    @RequestMapping("/{id}/gateway")
+    public BookDTO findGatewayById(@PathVariable(value = "id") Long bookDTO) {
+        return bookGateway.findById(bookDTO);
     }
 
-//    @ExceptionHandler(BookNotFoundException.class)
-//    public ResponseEntity<BookError> handleException() {
-//        return ResponseEntity
-//                .status(HttpStatus.NOT_FOUND)
-//                .body(new BookError("Book not found exception", 1));
-//    }
+    @PostMapping("/gateway")
+    public void createGateway(@Valid @RequestBody BookDTO bookDTO) {
+        bookGateway.create(bookDTO);
+    }
+
+    @ExceptionHandler(BookNotFoundException.class)
+    public ResponseEntity<BookError> handleException() {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new BookError("Book not found exception", 1));
+    }
 
 }

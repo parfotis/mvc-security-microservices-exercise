@@ -1,6 +1,4 @@
-package com.learning.ote.spring.mvc.domain;
-
-import com.learning.ote.spring.enums.Category;
+package com.learning.ote.spring.mvc.domain.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,10 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import com.learning.ote.spring.mvc.domain.enumerator.Category;
 
 @Entity
 @Table(name = "BOOK")
-public class Book {
+public class BookEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,20 +30,20 @@ public class Book {
 
     @ManyToOne(optional = false, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "author_id")
-    private Author author;
+    private AuthorEntity author;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "book_category")
     private Category category;
 
-    public Book(String title, String year, Author author, Category category) {
+    public BookEntity(String title, String year, AuthorEntity author, Category category) {
         this.title = title;
         this.year = year;
         this.author = author;
         this.category = category;
     }
 
-    public Book() {
+    public BookEntity() {
     }
 
     public Long getId() {
@@ -71,11 +70,11 @@ public class Book {
         this.year = year;
     }
 
-    public Author getAuthor() {
+    public AuthorEntity getAuthor() {
         return author;
     }
 
-    public void setAuthor(Author author) {
+    public void setAuthor(AuthorEntity author) {
         this.author = author;
     }
 

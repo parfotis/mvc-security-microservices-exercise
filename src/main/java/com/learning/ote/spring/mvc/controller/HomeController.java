@@ -1,9 +1,7 @@
 package com.learning.ote.spring.mvc.controller;
 
-import com.learning.ote.spring.mvc.service.GreetingService;
-import com.learning.ote.spring.mvc.service.HelloService;
+import com.learning.ote.spring.mvc.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,14 +13,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-public class HelloController {
+public class HomeController {
 
     @Autowired
-    private HelloService service;
-
-    @Autowired
-    @Qualifier("greetingServiceGr")
-    private GreetingService greetingService;
+    private UsersService usersService;
 
     @ModelAttribute
     public void securityContext(Model model) {
@@ -33,16 +27,11 @@ public class HelloController {
         model.addAttribute("_authorities", authorities);
     }
 
-    @GetMapping("/")
-    public String sayHello(Model model) {
+    @GetMapping({"/"})
+    public String home(Model model) {
         String id = SecurityContextHolder.getContext().getAuthentication().getName();
-        String username = service.getUsernameFromId(id);
-
+        String username = usersService.getUsernameFromId(id);
         model.addAttribute("username", username);
-
-        String greeting = greetingService.getGreeting();
-        model.addAttribute("greeting", greeting);
-        return "hello";
+        return "/index";
     }
-
 }

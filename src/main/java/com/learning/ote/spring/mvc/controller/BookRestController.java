@@ -1,10 +1,13 @@
 package com.learning.ote.spring.mvc.controller;
 
 import com.learning.ote.spring.mvc.domain.dto.BookDTO;
+import com.learning.ote.spring.mvc.exception.BookNotFoundException;
+import com.learning.ote.spring.mvc.exception.errors.BookError;
 import com.learning.ote.spring.mvc.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +35,7 @@ public class BookRestController {
         BookDTO bookDTO = bookService.findById(bookId);
 
         return ResponseEntity
-                .status((bookDTO != null) ? HttpStatus.OK : HttpStatus.NOT_FOUND)
+                .status(HttpStatus.OK)
                 .body(bookDTO);
     }
 
@@ -49,5 +52,19 @@ public class BookRestController {
     public BookDTO create(@RequestBody BookDTO bookDTO) {
         return bookService.save(bookDTO);
     }
+
+    @ExceptionHandler(BookNotFoundException.class)
+    public ResponseEntity<String> handleException() {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body("Book not found exception");
+    }
+
+//    @ExceptionHandler(BookNotFoundException.class)
+//    public ResponseEntity<BookError> handleException() {
+//        return ResponseEntity
+//                .status(HttpStatus.NOT_FOUND)
+//                .body(new BookError("Book not found exception", 1));
+//    }
 
 }

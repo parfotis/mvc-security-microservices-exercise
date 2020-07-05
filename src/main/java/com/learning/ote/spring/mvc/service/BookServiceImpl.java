@@ -4,6 +4,7 @@ import com.learning.ote.spring.mvc.converter.BookConverter;
 import com.learning.ote.spring.mvc.domain.entity.AuthorEntity;
 import com.learning.ote.spring.mvc.domain.entity.BookEntity;
 import com.learning.ote.spring.mvc.domain.dto.BookDTO;
+import com.learning.ote.spring.mvc.exception.BookNotFoundException;
 import com.learning.ote.spring.mvc.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,11 +28,10 @@ public class BookServiceImpl implements BookService {
         BookDTO bookDTO;
         try {
             book = bookRepository.findById(id).get();
-            bookDTO = BookConverter.convert(book);
-
         } catch (NoSuchElementException nsee) {
-            return null;
+            throw new BookNotFoundException("Book not found", nsee.getCause());
         }
+        bookDTO = BookConverter.convert(book);
 
         return bookDTO;
     }

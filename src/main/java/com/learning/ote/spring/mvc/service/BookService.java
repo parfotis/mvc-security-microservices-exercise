@@ -12,6 +12,8 @@ public interface BookService {
 
     List<BookDTO> findAll();
 
+    void deleteById(Long id);
+
     List<BookEntity> findByAuthor(AuthorEntity author);
 
     List<BookEntity> findByAuthorAndYear(AuthorEntity author, String year);

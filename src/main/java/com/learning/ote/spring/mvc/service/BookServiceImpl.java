@@ -44,6 +44,10 @@ public class BookServiceImpl implements BookService {
                 .collect(Collectors.toList());
     }
 
+    public void deleteById(Long id) {
+        bookRepository.deleteById(id);
+    }
+
     @Override
     public List<BookEntity> findByAuthor(AuthorEntity author) {
         return bookRepository.findByAuthor(author);
@@ -63,9 +67,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDTO save(BookDTO bookDTO) {
-        AuthorEntity author = authorService.findById(bookDTO.getAuthorId());
         BookEntity book = BookConverter.convert(bookDTO);
-        book.setAuthor(author);
+        if (bookDTO.getAuthorId() != null) {
+            AuthorEntity author = authorService.findById(bookDTO.getAuthorId());
+            book.setAuthor(author);
+        }
 
         bookRepository.save(book);
 

@@ -1,7 +1,7 @@
 package com.learning.ote.spring.mvc.repository;
 
-import com.learning.ote.spring.mvc.domain.Author;
-import com.learning.ote.spring.mvc.domain.Book;
+import com.learning.ote.spring.mvc.domain.entity.AuthorEntity;
+import com.learning.ote.spring.mvc.domain.entity.BookEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,26 +9,26 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
 
-    List<Book> findAll();
+    List<BookEntity> findAll();
 
-    Page<Book> findAll(Pageable pageable);
+    Page<BookEntity> findAll(Pageable pageable);
 
-    Optional<Book> findById(Long id);
+    Optional<BookEntity> findById(Long id);
 
-    List<Book> findByTitleContaining(String title);
+    List<BookEntity> findByTitleContaining(String title);
 
-    Page<Book> findByTitleContaining(String title, Pageable pageable);
+    Page<BookEntity> findByTitleContaining(String title, Pageable pageable);
 
-    List<Book> findByAuthor(Author author);
+    List<BookEntity> findByAuthor(AuthorEntity author);
 
-    List<Book> findByAuthorAndYear(Author author, String year);
+    List<BookEntity> findByAuthorAndYear(AuthorEntity author, String year);
 
-    List<Book> findByAuthorAndTitleAndYear(Author author, String title, String year);
+    List<BookEntity> findByAuthorAndTitleAndYear(AuthorEntity author, String title, String year);
 
-    Book save(Book book);
+    BookEntity save(BookEntity book);
 
     void deleteById(Long id);
 

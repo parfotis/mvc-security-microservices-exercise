@@ -1,4 +1,4 @@
-package com.learning.ote.spring.enums;
+package com.learning.ote.spring.mvc.domain.enumerator;
 
 public enum Category {
     DEFAULT("Undefined"),

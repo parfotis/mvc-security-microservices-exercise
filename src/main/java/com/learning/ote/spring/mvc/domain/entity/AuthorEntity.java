@@ -1,4 +1,4 @@
-package com.learning.ote.spring.mvc.domain;
+package com.learning.ote.spring.mvc.domain.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "AUTHOR", uniqueConstraints = {@UniqueConstraint(columnNames = {"firstname", "lastname"})})
-public class Author {
+public class AuthorEntity {
 
     private static final int MAX_NAME_LENGTH = 60;
 
@@ -27,16 +27,16 @@ public class Author {
     @Column(name = "lastname", length = MAX_NAME_LENGTH)
     private String lastName;
 
-    @OneToMany(mappedBy = "author", targetEntity = Book.class)
-    private List<Book> books;
+    @OneToMany(mappedBy = "author", targetEntity = BookEntity.class)
+    private List<BookEntity> books;
 
-    public Author(String firstName, String lastName, List<Book> books) {
+    public AuthorEntity(String firstName, String lastName, List<BookEntity> books) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.books = books;
     }
 
-    public Author() {
+    public AuthorEntity() {
     }
 
     public Long getId() {
@@ -63,11 +63,11 @@ public class Author {
         this.lastName = lastName;
     }
 
-    public List<Book> getBooks() {
+    public List<BookEntity> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(List<BookEntity> books) {
         this.books = books;
     }
 

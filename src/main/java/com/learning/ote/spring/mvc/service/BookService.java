@@ -1,22 +1,25 @@
 package com.learning.ote.spring.mvc.service;
 
-import com.learning.ote.spring.mvc.domain.Author;
-import com.learning.ote.spring.mvc.domain.Book;
+import com.learning.ote.spring.mvc.domain.entity.AuthorEntity;
+import com.learning.ote.spring.mvc.domain.entity.BookEntity;
+import com.learning.ote.spring.mvc.domain.dto.BookDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BookService {
 
-    Optional<Book> findBook(Long id);
+    BookDTO findById(Long id);
 
-    List<Book> findAll();
+    List<BookDTO> findAll();
 
-    List<Book> findByAuthor(Author author);
+    void deleteById(Long id);
 
-    List<Book> findByAuthorAndYear(Author author, String year);
+    List<BookEntity> findByAuthor(AuthorEntity author);
 
-    List<Book> findByTitle(String title);
+    List<BookEntity> findByAuthorAndYear(AuthorEntity author, String year);
 
+    List<BookDTO> findByTitle(String title);
+
+    BookDTO save(BookDTO bookDTO);
 
 }

@@ -1,17 +1,17 @@
 package com.learning.ote.spring.mvc.service;
 
 
-import com.learning.ote.spring.mvc.domain.Author;
+import com.learning.ote.spring.mvc.domain.entity.AuthorEntity;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface AuthorService {
 
-    Optional<Author> findAuthor(Long id);
+    AuthorEntity findById(Long id);
 
-    List<Author> getAllAuthors();
+    List<AuthorEntity> getAllAuthors();
 
-    Optional<Author> findAuthorByFirstNameAndLastName(String firstName, String lastName);
+    Optional<AuthorEntity> findAuthorByFirstNameAndLastName(String firstName, String lastName);
 
 }

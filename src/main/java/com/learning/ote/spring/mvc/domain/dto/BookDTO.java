@@ -1,10 +1,20 @@
 package com.learning.ote.spring.mvc.domain.dto;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class BookDTO {
     private Long id;
+
+    @NotNull(message = "Title cannot be empty")
+    //@NotNull(message = "{title.invalid}")
+    @Size(min = 8, message = "Title should have at least 8 characters")
     private String title;
+
     private String year;
+
     private Long authorId;
+
     private String category;
 
     public Long getId() {

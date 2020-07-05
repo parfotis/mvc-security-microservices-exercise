@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello!</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Admin</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Users</li>
+  </ol>
+</nav>
+
+<div class="container">
+
+  <row>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Username</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <#list users as user>
+        <tr>
+          <td>${user.firstName}</td>
+          <td>${user.lastName}</td>
+          <td>${user.username}</td>
+        </tr>
+      </#list>
+
+      </tbody>
+    </table>
+  </row>
+
+</div>
+
+</body>
+</html>

@@ -8,6 +8,7 @@ import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
@@ -38,7 +39,7 @@ public class AppConfiguration implements WebMvcConfigurer {
 
 
     @Bean
-    public OAuth2ProtectedResourceDetails reddit() {
+    public OAuth2ProtectedResourceDetails details() {
         AuthorizationCodeResourceDetails details = new AuthorizationCodeResourceDetails();
         details.setId("Auth server");
         details.setClientId(clientID);
@@ -53,11 +54,11 @@ public class AppConfiguration implements WebMvcConfigurer {
     }
 
     @Bean
-    public OAuth2RestTemplate oauth2RestTemplate(OAuth2ProtectedResourceDetails details) {
+    public RestTemplate oauth2RestTemplate(OAuth2ProtectedResourceDetails details) {
         OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(details);
 
         /* To validate if required configurations are in place during startup */
-        oAuth2RestTemplate.getAccessToken();
+//        oAuth2RestTemplate.getAccessToken();
         return oAuth2RestTemplate;
     }
 

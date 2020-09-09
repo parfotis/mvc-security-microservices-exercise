@@ -1,7 +1,5 @@
 package com.learning.ote.spring.mvc.converter;
 
-import com.learning.ote.spring.mvc.domain.dto.AuthorDTO;
-import com.learning.ote.spring.mvc.domain.entity.AuthorEntity;
 import com.learning.ote.spring.mvc.domain.entity.BookEntity;
 import com.learning.ote.spring.mvc.domain.dto.BookDTO;
 import com.learning.ote.spring.mvc.domain.enumerator.Category;
@@ -31,13 +29,4 @@ public class BookConverter {
         return book;
     }
 
-    // TODO: Move it to AuthorConverter
-    private static AuthorDTO convert(AuthorEntity author) {
-        AuthorDTO authorDTO = new AuthorDTO();
-        authorDTO.setId(author.getId());
-        authorDTO.setLastName(author.getLastName());
-        authorDTO.setFirstName(author.getFirstName());
-
-        return authorDTO;
-    }
 }

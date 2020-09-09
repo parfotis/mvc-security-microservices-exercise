@@ -1,6 +1,7 @@
 package com.learning.ote.spring.mvc.service;
 
 
+import com.learning.ote.spring.mvc.domain.dto.AuthorDTO;
 import com.learning.ote.spring.mvc.domain.entity.AuthorEntity;
 
 import java.util.List;
@@ -14,4 +15,9 @@ public interface AuthorService {
 
     Optional<AuthorEntity> findAuthorByFirstNameAndLastName(String firstName, String lastName);
 
+    List<AuthorDTO> findAll();
+
+    void deleteById(Long id);
+
+    AuthorDTO save(AuthorDTO authorDTO);
 }

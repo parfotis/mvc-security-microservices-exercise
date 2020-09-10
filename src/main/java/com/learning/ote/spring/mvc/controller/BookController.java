@@ -4,6 +4,10 @@ import com.learning.ote.spring.mvc.domain.dto.BookDTO;
 import com.learning.ote.spring.mvc.domain.enumerator.Category;
 import com.learning.ote.spring.mvc.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,13 +34,16 @@ public class BookController {
     BookService bookService;
 
     @GetMapping(value = "/books")
-    public String findAll(Model model) {
+    public String findAll(Model model, Authentication auth) {
+        System.out.println("Authentication: " + auth.toString());
+
         List<BookDTO> bookList = bookService.findAll();
         model.addAttribute(BOOKS_ATTR, bookList);
 
         return BOOKS_TEMPLATE;
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/books/{id}/edit")
     public String edit(@PathVariable("id") Long bookId, Model model) {
         BookDTO bookDTO = bookService.findById(bookId);
@@ -45,6 +52,7 @@ public class BookController {
         return EDIT_BOOK_TEMPLATE;
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/books/{id}/delete")
     public String delete(@PathVariable("id") Long bookId) {
         bookService.deleteById(bookId);
@@ -52,6 +60,7 @@ public class BookController {
         return redirect(BOOKS_URL);
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/books/create")
     public String showCreateView(Model model) {
         model.addAttribute(BOOK_ATTR, new BookDTO());
@@ -59,6 +68,7 @@ public class BookController {
         return CREATE_BOOK_TEMPLATE;
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping(value = "/books")
     public String createOrUpdate(@ModelAttribute(BOOK_ATTR) @Valid BookDTO bookDTO, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {

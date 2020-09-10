@@ -4,6 +4,7 @@ import com.learning.ote.spring.mvc.domain.dto.AuthorDTO;
 import com.learning.ote.spring.mvc.domain.enumerator.Category;
 import com.learning.ote.spring.mvc.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +37,7 @@ public class AuthorController {
         return AUTHORS_TEMPLATE;
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/authors/{id}/delete")
     public String delete(@PathVariable("id") Long authorId) {
         authorService.deleteById(authorId);
@@ -43,6 +45,7 @@ public class AuthorController {
         return redirect(AUTHORS_URL);
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping(value = "/authors/create")
     public String showCreateView(Model model) {
         model.addAttribute(AUTHOR_ATTR, new AuthorDTO());
@@ -50,13 +53,11 @@ public class AuthorController {
         return CREATE_AUTHOR_TEMPLATE;
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping(value = "/authors")
     public String createOrUpdate(@ModelAttribute(AUTHOR_ATTR) @Valid AuthorDTO authorDTO, BindingResult bindingResult, Model model) {
-        System.out.println("Entered POST mapping");
         if (bindingResult.hasErrors()) {
             model.addAttribute(AUTHOR_ATTR, authorDTO);
-
-            System.out.println("Author form has errors");
 
             return CREATE_AUTHOR_TEMPLATE;
         }
@@ -64,11 +65,7 @@ public class AuthorController {
         //bookDTO.setCategory(Category.COMEDY.name());
         //bookDTO.setAuthorId(1L);
 
-        System.out.println("Before save");
-
         authorService.save(authorDTO);
-
-        System.out.println("After save");
 
         return redirect(AUTHORS_URL);
     }

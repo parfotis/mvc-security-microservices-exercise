@@ -81,6 +81,19 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Spring Security integration with FreeMarker -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+        </dependency>
+
+        <!-- Enable JSP loading in Tomcat -->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jsp-api</artifactId>
+            <scope>default</scope>
+        </dependency>
+
 
     </dependencies>
 
